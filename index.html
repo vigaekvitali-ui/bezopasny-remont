@@ -20,10 +20,35 @@
             padding: 20px;
             margin-bottom: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        .header h1 { font-size: 1.6rem; color: #1a4d2a; }
-        .header p { color: #2c5e1a; font-size: 0.9rem; margin-top: 8px; font-weight: bold; }
+        .header-text {
+            flex: 1;
+        }
+        .header-text h1 { font-size: 1.6rem; color: #1a4d2a; }
+        .header-text p { color: #2c5e1a; font-size: 0.9rem; margin-top: 8px; font-weight: bold; }
+        .qr-code {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .qr-code img {
+            width: 80px;
+            height: 80px;
+            display: block;
+        }
+        .qr-code span {
+            font-size: 0.7rem;
+            color: #1a4d2a;
+            display: block;
+            margin-top: 5px;
+        }
         
         .profile-card {
             background: white;
@@ -32,8 +57,30 @@
             margin-bottom: 25px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-        .profile-name { font-size: 1.8rem; font-weight: bold; color: #1a4d2a; }
-        .profile-group { font-size: 1.2rem; color: #555; margin-bottom: 20px; }
+        .profile-name { font-size: 1.8rem; font-weight: bold; color: #1a4d2a; margin-bottom: 15px; }
+        .user-fields {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .user-fields input {
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        .user-fields button {
+            background: #1a4d2a;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+        }
         .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; color: #1a4d2a; }
         .progress-bar { background: #e0e0e0; border-radius: 30px; height: 20px; overflow: hidden; margin-bottom: 20px; }
         .progress-fill { background: #ffcc00; width: 0%; height: 100%; border-radius: 30px; transition: width 0.3s; }
@@ -81,12 +128,13 @@
         .history-table th, .history-table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         .history-table th { background: #e8f0e5; color: #1a4d2a; }
         .empty-history { text-align: center; color: #999; padding: 30px; }
-        .reset-btn { background: #ff8c42; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: bold; }
+        .reset-btn { background: #ff8c42; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: bold; margin-top: 15px; }
         
         .footer { text-align: center; color: rgba(255,255,255,0.7); margin-top: 30px; font-size: 0.8rem; }
         
         @media (max-width: 600px) {
-            .profile-name { font-size: 1.3rem; }
+            .header { flex-direction: column; text-align: center; }
+            .qr-code img { width: 60px; height: 60px; margin: 0 auto; }
             .menu-title { font-size: 1.1rem; }
         }
     </style>
@@ -94,13 +142,23 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>🚜 Безопасный ремонт? ВСЕГДА!!! 🚜</h1>
-        <p>Электронный кабинет безопасности труда ремонтника</p>
+        <div class="header-text">
+            <h1>🚜 Безопасный ремонт? ВСЕГДА!!! 🚜</h1>
+            <p>Электронный кабинет безопасности труда ремонтника</p>
+        </div>
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://vigaekvitali-ui.github.io/bezopasny-remont/" alt="QR-код">
+            <span>QR-код сайта</span>
+        </div>
     </div>
     
     <div class="profile-card">
-        <div class="profile-name" id="userName">Шумский Виталий</div>
-        <div class="profile-group" id="userGroup">Группа: 59ТО</div>
+        <div class="profile-name">👋 Добро пожаловать!</div>
+        <div class="user-fields">
+            <input type="text" id="userName" placeholder="Ваше имя" value="">
+            <input type="text" id="userGroup" placeholder="№ группы" value="">
+            <button id="saveUserBtn">💾 Сохранить</button>
+        </div>
         <div class="progress-label"><span>📊 Общий прогресс</span><span id="progressPercent">0%</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <button class="reset-btn" id="resetHistoryBtn">🗑️ Сбросить историю</button>
@@ -132,11 +190,39 @@
         <div id="historyList"><div class="empty-history">📭 Пока нет результатов. Пройдите тренажёр!</div></div>
     </div>
     
-    <div class="footer">© 2026 Шумский Виталий, 59ТО | Ошмянский ГАЭК</div>
+    <div class="footer">© 2026 | Ошмянский ГАЭК | Безопасный ремонт? ВСЕГДА!!!</div>
 </div>
 
 <script>
+    // Ключи для localStorage
     const STORAGE_HISTORY = 'trainer_history';
+    const STORAGE_USER = 'site_user';
+    
+    // Текущий пользователь
+    let currentUser = { name: '', group: '' };
+    
+    // Загрузка пользователя из localStorage
+    function loadUser() {
+        const saved = localStorage.getItem(STORAGE_USER);
+        if (saved) {
+            currentUser = JSON.parse(saved);
+            document.getElementById('userName').value = currentUser.name || '';
+            document.getElementById('userGroup').value = currentUser.group || '';
+        }
+    }
+    
+    // Сохранение пользователя
+    document.getElementById('saveUserBtn').addEventListener('click', () => {
+        currentUser = {
+            name: document.getElementById('userName').value,
+            group: document.getElementById('userGroup').value
+        };
+        localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
+        alert('Данные сохранены!');
+        loadHistory(); // обновляем историю (может показывать имя)
+    });
+    
+    // Загрузка истории (фильтрация по пользователю не нужна, но показываем)
     function loadHistory() {
         const history = JSON.parse(localStorage.getItem(STORAGE_HISTORY) || '[]');
         const container = document.getElementById('historyList');
@@ -153,7 +239,14 @@
             const percent = Math.round((item.score / item.maxScore) * 100);
             totalPercent += percent;
             const status = percent >= 70 ? '✅ Зачтено' : '❌ Не зачтено';
-            html += `<tr><td>${item.date}</td><td>${item.nodeName || item.node}</td><td>${item.mode || 'тренировка'}</td><td>${item.score}/${item.maxScore}</td><td><span style="background:${percent>=70?'#4caf50':'#ff9800'}; color:white; padding:4px 12px; border-radius:20px;">${status}</span></td></tr>`;
+            const statusColor = percent >= 70 ? '#4caf50' : '#ff9800';
+            html += `<tr>
+                        <td>${item.date}</td>
+                        <td>${item.nodeName || item.node || '—'}</td>
+                        <td>${item.mode || 'тренировка'}</td>
+                        <td>${item.score}/${item.maxScore}</td>
+                        <td><span style="background:${statusColor}; color:white; padding:4px 12px; border-radius:20px;">${status}</span></td>
+                     </tr>`;
         });
         html += '</tbody></table>';
         container.innerHTML = html;
@@ -161,14 +254,19 @@
         document.getElementById('progressPercent').innerText = avgPercent + '%';
         document.getElementById('progressFill').style.width = avgPercent + '%';
     }
+    
+    // Сброс истории
     function resetHistory() {
-        if (confirm('Вы уверены?')) {
+        if (confirm('Вы уверены? Вся история будет удалена без возможности восстановления.')) {
             localStorage.removeItem(STORAGE_HISTORY);
             localStorage.removeItem('trainer_completed_nodes');
             loadHistory();
             alert('История очищена!');
         }
     }
+    
+    // Инициализация
+    loadUser();
     loadHistory();
     document.getElementById('resetHistoryBtn').addEventListener('click', resetHistory);
 </script>
