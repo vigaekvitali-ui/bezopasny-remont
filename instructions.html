@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкции - Безопасный ремонт? ВСЕГДА!!!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a4d2a 0%, #0e3a1f 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header {
+            background: #ffcc00;
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header h1 { font-size: 1.4rem; color: #1a4d2a; }
+        .back-btn { background: #1a4d2a; color: white; text-decoration: none; padding: 8px 18px; border-radius: 30px; font-weight: bold; }
+        .accordion-item { background: white; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+        .accordion-header {
+            background: #1a4d2a;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .accordion-header:hover { background: #0e3a1f; }
+        .accordion-header::before { content: "▶ "; font-size: 0.9rem; }
+        .accordion-item.active .accordion-header::before { content: "▼ "; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #f9f9f9; padding: 0 20px; }
+        .accordion-item.active .accordion-content { max-height: 600px; padding: 15px 20px; }
+        .step { padding: 8px 0; border-bottom: 1px solid #ddd; }
+        .footer { text-align: center; color: rgba(255,255,255,0.7); margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📘 ИНСТРУКЦИИ ПО БЕЗОПАСНОМУ РЕМОНТУ</h1>
+            <a href="index.html" class="back-btn">← На главную</a>
+        </div>
+        
+        <div class="accordion" id="accordion">
+            <div class="accordion-item"><div class="accordion-header">🚜 ДВИГАТЕЛЬ</div><div class="accordion-content">
+                <div class="step">1. Отключить аккумуляторную батарею (клемма «минус»)</div>
+                <div class="step">2. Дать двигателю остыть до температуры ниже 40°C</div>
+                <div class="step">3. Слить масло из картера двигателя (только на горячем)</div>
+                <div class="step">4. Слить охлаждающую жидкость (только на холодном)</div>
+                <div class="step">5. Слить топливо из системы питания</div>
+                <div class="step">6. Сбросить давление в топливной магистрали</div>
+                <div class="step">7. Зафиксировать двигатель на ремонтном стенде</div>
+                <div class="step">8. Отсоединить все шланги и проводку с маркировкой</div>
+                <div class="step">9. Снимать узлы вдвоём (вес более 20 кг)</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">📦 КОРОБКА ПЕРЕДАЧ (КПП)</div><div class="accordion-content">
+                <div class="step">1. Установить рычаг КПП в нейтральное положение</div>
+                <div class="step">2. Затянуть стояночный тормоз</div>
+                <div class="step">3. Установить противооткатные упоры под колёса</div>
+                <div class="step">4. Слить масло из КПП</div>
+                <div class="step">5. Отсоединить карданный вал</div>
+                <div class="step">6. Зафиксировать КПП на подъёмном механизме</div>
+                <div class="step">7. Открутить болты крепления</div>
+                <div class="step">8. Опустить на ремонтную подставку</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">🚜 ХОДОВАЯ ЧАСТЬ</div><div class="accordion-content">
+                <div class="step">1. Установить противооткатные упоры под все колёса</div>
+                <div class="step">2. Вывесить мост на надёжные козелки</div>
+                <div class="step">3. Снять давление в шинах перед разборкой колеса</div>
+                <div class="step">4. Проверить устойчивость трактора на козелках</div>
+                <div class="step">5. Снять нагрузку с подвески</div>
+                <div class="step">6. Использовать специальные съёмники для ступиц</div>
+                <div class="step">7. Работать вдвоём при снятии тяжёлых узлов</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">🛑 ТОРМОЗНАЯ СИСТЕМА</div><div class="accordion-content">
+                <div class="step">1. Сбросить остаточное давление в пневмосистеме</div>
+                <div class="step">2. Перекрыть краны к тормозным камерам</div>
+                <div class="step">3. Затянуть стояночный тормоз</div>
+                <div class="step">4. Установить противооткатные упоры</div>
+                <div class="step">5. Слить конденсат из ресиверов</div>
+                <div class="step">6. Проверить отсутствие давления манометром</div>
+                <div class="step">7. Работать в защитных очках</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">⛓️ НАВЕСНОЕ ОБОРУДОВАНИЕ</div><div class="accordion-content">
+                <div class="step">1. Опустить навеску на землю</div>
+                <div class="step">2. Снять давление в гидросистеме</div>
+                <div class="step">3. Зафиксировать гидроцилиндры страховочными цепями</div>
+                <div class="step">4. Отсоединить гидролинии (подставить ёмкость)</div>
+                <div class="step">5. Проверить устойчивость агрегата</div>
+                <div class="step">6. Работать вдвоём при отсоединении тяжёлых машин</div>
+                <div class="step">7. Установить опорные стойки</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">🚗 РУЛЕВОЕ УПРАВЛЕНИЕ</div><div class="accordion-content">
+                <div class="step">1. Зафиксировать передние колёса в прямом положении</div>
+                <div class="step">2. Слить масло из гидроусилителя руля</div>
+                <div class="step">3. Отключить насос ГУР (снять ремень)</div>
+                <div class="step">4. Проверить отсутствие давления в системе</div>
+                <div class="step">5. Зафиксировать рулевое колесо от проворота</div>
+                <div class="step">6. Использовать съёмник рулевых наконечников</div>
+                <div class="step">7. Работать на вывешенных колёсах</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">⚡ ЭЛЕКТРООБОРУДОВАНИЕ</div><div class="accordion-content">
+                <div class="step">1. Отключить аккумуляторную батарею (клемма «минус»)</div>
+                <div class="step">2. Проверить отсутствие напряжения тестером</div>
+                <div class="step">3. Снять генератор только после отключения АКБ</div>
+                <div class="step">4. Не допускать замыканий (изолировать провода)</div>
+                <div class="step">5. Использовать инструмент с изолированными ручками</div>
+                <div class="step">6. Работать в диэлектрических перчатках</div>
+            </div></div>
+            
+            <div class="accordion-item"><div class="accordion-header">🏠 КАБИНА</div><div class="accordion-content">
+                <div class="step">1. Зафиксировать двери и стёкла (чтобы не хлопали)</div>
+                <div class="step">2. Снять стеклоочистители (при демонтаже стекла)</div>
+                <div class="step">3. Работать вдвоём при снятии кабины</div>
+                <div class="step">4. Отключить электрооборудование кабины</div>
+                <div class="step">5. Слить жидкость из омывателя</div>
+                <div class="step">6. Использовать подставки при демонтаже кабины</div>
+            </div></div>
+        </div>
+        
+        <div class="footer">© 2026 Шумский Виталий, 59ТО | Ошмянский ГАЭК</div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

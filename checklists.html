@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Чек-листы - Безопасный ремонт? ВСЕГДА!!!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a4d2a 0%, #0e3a1f 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: #ffcc00;
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .header h1 { font-size: 1.4rem; color: #1a4d2a; }
+        .back-btn { background: #1a4d2a; color: white; text-decoration: none; padding: 8px 18px; border-radius: 30px; font-weight: bold; }
+        .checklist-card { background: white; border-radius: 20px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .checklist-header { background: #1a4d2a; color: white; padding: 12px 20px; font-weight: bold; font-size: 0.95rem; cursor: pointer; }
+        .checklist-header::before { content: "📄 "; }
+        .checklist-content { padding: 15px; display: none; }
+        .checklist-content.show { display: block; }
+        .checklist-item { padding: 6px 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; }
+        .checklist-item input { width: 18px; height: 18px; }
+        .print-btn { background: #ffcc00; color: #1a4d2a; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-top: 15px; font-weight: bold; }
+        .footer { text-align: center; color: rgba(255,255,255,0.7); margin-top: 30px; }
+        @media print {
+            .header, .back-btn, .print-btn, .footer { display: none; }
+            .checklist-content { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 ЧЕК-ЛИСТЫ БЕЗОПАСНОСТИ</h1>
+            <a href="index.html" class="back-btn">← На главную</a>
+        </div>
+        
+        <div id="checklists"></div>
+        
+        <div class="footer">© 2026 Шумский Виталий, 59ТО | Ошмянский ГАЭК</div>
+    </div>
+    
+    <script src="data.js"></script>
+    <script>
+        const container = document.getElementById('checklists');
+        
+        function buildChecklists() {
+            let html = '';
+            for (const [id, node] of Object.entries(NODES_DATA)) {
+                html += `
+                    <div class="checklist-card">
+                        <div class="checklist-header" data-id="${id}">${node.icon} ${node.fullName}</div>
+                        <div class="checklist-content" id="content-${id}">
+                            ${node.correctActions.map((action, idx) => `
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="chk-${id}-${idx}">
+                                    <label>☐ ${action}</label>
+                                </div>
+                            `).join('')}
+                            <button class="print-btn" onclick="printChecklist('${id}')">🖨️ Распечатать</button>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+            
+            document.querySelectorAll('.checklist-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = document.getElementById('content-' + header.dataset.id);
+                    content.classList.toggle('show');
+                });
+            });
+        }
+        
+        window.printChecklist = function(id) {
+            const node = NODES_DATA[id];
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head><meta charset="UTF-8"><title>Чек-лист ${node.fullName}</title>
+                <style>
+                    body { font-family: sans-serif; margin: 20px; }
+                    h1 { color: #1a4d2a; }
+                    li { margin: 8px 0; }
+                </style>
+                </head>
+                <body>
+                    <h1>📋 Чек-лист безопасности: ${node.fullName}</h1>
+                    <ul>${node.correctActions.map(a => `<li>☐ ${a}</li>`).join('')}</ul>
+                    <p>Дата: _______________ | Подпись: _______________</p>
+                </body>
+                </html>
+            `);
+            win.document.close();
+            win.print();
+        };
+        
+        buildChecklists();
+    </script>
+</body>
+</html>
