@@ -209,12 +209,11 @@
         <div id="historyList"><div class="empty-history">📭 Пока нет результатов. Пройдите тренажёр!</div></div>
     </div>
     
-    <!-- Блок с полезными ресурсами -->
+    <!-- Блок с полезными ресурсами (без Паперки) -->
     <div class="resources-card">
         <div class="history-title" style="margin-bottom: 20px;">🔗 ПОЛЕЗНЫЕ РЕСУРСЫ ПО ОХРАНЕ ТРУДА</div>
         
         <div style="display: flex; flex-direction: column; gap: 20px;">
-            <!-- Официальные документы -->
             <div>
                 <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">📚 Официальные документы (Республика Беларусь):</div>
                 <ul style="margin-left: 20px; color: #555;">
@@ -223,15 +222,6 @@
                 </ul>
             </div>
             
-            <!-- Полезное приложение -->
-            <div>
-                <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">📱 Полезное мобильное приложение:</div>
-                <ul style="margin-left: 20px; color: #555;">
-                    <li><a href="https://profgosmogilev.by/?p=18511" target="_blank">📲 «ПАПЕРКА по охране труда»</a> — бесплатно, работает без интернета, для Android <span style="font-size: 0.75rem; color: #888;">(инструкции, тесты, НПА)</span></li>
-                </ul>
-            </div>
-            
-            <!-- Горячая линия -->
             <div>
                 <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">🆘 Горячая линия по охране труда:</div>
                 <ul style="margin-left: 20px; color: #555;">
@@ -246,14 +236,11 @@
 </div>
 
 <script>
-    // Ключи для localStorage
     const STORAGE_HISTORY = 'trainer_history';
     const STORAGE_USER = 'site_user';
     
-    // Текущий пользователь
     let currentUser = { name: '', group: '' };
     
-    // Загрузка пользователя из localStorage
     function loadUser() {
         const saved = localStorage.getItem(STORAGE_USER);
         if (saved) {
@@ -263,7 +250,6 @@
         }
     }
     
-    // Сохранение пользователя
     document.getElementById('saveUserBtn').addEventListener('click', () => {
         currentUser = {
             name: document.getElementById('userName').value,
@@ -274,7 +260,6 @@
         loadHistory();
     });
     
-    // Загрузка истории
     function loadHistory() {
         const history = JSON.parse(localStorage.getItem(STORAGE_HISTORY) || '[]');
         const container = document.getElementById('historyList');
@@ -307,7 +292,6 @@
         document.getElementById('progressFill').style.width = avgPercent + '%';
     }
     
-    // Сброс истории
     function resetHistory() {
         if (confirm('Вы уверены? Вся история будет удалена без возможности восстановления.')) {
             localStorage.removeItem(STORAGE_HISTORY);
@@ -317,7 +301,6 @@
         }
     }
     
-    // Инициализация
     loadUser();
     loadHistory();
     document.getElementById('resetHistoryBtn').addEventListener('click', resetHistory);
