@@ -121,6 +121,7 @@
             background: white;
             border-radius: 25px;
             padding: 25px;
+            margin-bottom: 25px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         .history-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 15px; color: #1a4d2a; }
@@ -130,12 +131,30 @@
         .empty-history { text-align: center; color: #999; padding: 30px; }
         .reset-btn { background: #ff8c42; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; font-weight: bold; margin-top: 15px; }
         
+        .resources-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .resources-card a {
+            color: #1a4d2a;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .resources-card a:hover {
+            text-decoration: underline;
+            color: #ff8c42;
+        }
+        
         .footer { text-align: center; color: rgba(255,255,255,0.7); margin-top: 30px; font-size: 0.8rem; }
         
         @media (max-width: 600px) {
             .header { flex-direction: column; text-align: center; }
             .qr-code img { width: 60px; height: 60px; margin: 0 auto; }
             .menu-title { font-size: 1.1rem; }
+            .user-fields { flex-direction: column; }
         }
     </style>
 </head>
@@ -190,6 +209,39 @@
         <div id="historyList"><div class="empty-history">📭 Пока нет результатов. Пройдите тренажёр!</div></div>
     </div>
     
+    <!-- Блок с полезными ресурсами -->
+    <div class="resources-card">
+        <div class="history-title" style="margin-bottom: 20px;">🔗 ПОЛЕЗНЫЕ РЕСУРСЫ ПО ОХРАНЕ ТРУДА</div>
+        
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <!-- Официальные документы -->
+            <div>
+                <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">📚 Официальные документы (Республика Беларусь):</div>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li><a href="https://etalonline.by/dokumenty-po-temam/?tbd=67" target="_blank">📖 Эталон-online — Законы и постановления по охране труда</a> <span style="font-size: 0.75rem; color: #888;">(актуальные НПА)</span></li>
+                    <li><a href="https://otb.by/reestr/" target="_blank">📋 Реестр НПА и ТНПА по охране труда</a> <span style="font-size: 0.75rem; color: #888;">(нормативные правовые акты)</span></li>
+                </ul>
+            </div>
+            
+            <!-- Полезное приложение -->
+            <div>
+                <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">📱 Полезное мобильное приложение:</div>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li><a href="https://profgosmogilev.by/?p=18511" target="_blank">📲 «ПАПЕРКА по охране труда»</a> — бесплатно, работает без интернета, для Android <span style="font-size: 0.75rem; color: #888;">(инструкции, тесты, НПА)</span></li>
+                </ul>
+            </div>
+            
+            <!-- Горячая линия -->
+            <div>
+                <div style="font-weight: bold; color: #1a4d2a; margin-bottom: 10px;">🆘 Горячая линия по охране труда:</div>
+                <ul style="margin-left: 20px; color: #555;">
+                    <li><strong>Профсоюз АПК:</strong> <a href="tel:+375291718493">📞 +375 29 171 84 93</a> <span style="font-size: 0.75rem; color: #888;">(ежедневно 8:00–22:00)</span> — сообщить о нарушениях ТБ, задать вопросы</li>
+                    <li><a href="https://moop.1prof.by/news/est-voprosy-kasayushhiesya-uborochnoj-kampanii-zvonite-v-profsoyuz-apk-3/" target="_blank">🌐 Подробнее о горячей линии</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
     <div class="footer">© 2026 | Ошмянский ГАЭК | Безопасный ремонт? ВСЕГДА!!!</div>
 </div>
 
@@ -219,10 +271,10 @@
         };
         localStorage.setItem(STORAGE_USER, JSON.stringify(currentUser));
         alert('Данные сохранены!');
-        loadHistory(); // обновляем историю (может показывать имя)
+        loadHistory();
     });
     
-    // Загрузка истории (фильтрация по пользователю не нужна, но показываем)
+    // Загрузка истории
     function loadHistory() {
         const history = JSON.parse(localStorage.getItem(STORAGE_HISTORY) || '[]');
         const container = document.getElementById('historyList');
