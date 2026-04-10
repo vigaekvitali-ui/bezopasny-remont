@@ -232,8 +232,6 @@
     </div>
 
     <script>
-        // БАЗА ВОПРОСОВ — 10 вопросов на каждую из 7 зон = 70 вопросов
-        
         // Вопросы для зоны "Колесо" (10 шт)
         const wheelQuestions = [
             { text: "Что необходимо сделать ПЕРЕД началом разборки колеса трактора?", options: ["Подкачать шину до максимального давления", "Установить противооткатные упоры и вывесить мост на козелки", "Слить масло из двигателя", "Отключить фары и поворотники"], correct: 1, explanation: "Перед разборкой колеса нужно: установить противооткатные упоры, вывесить мост на надёжные козелки, снять давление в шине." },
@@ -349,7 +347,6 @@
         let totalQuestionsAnswered = 0;
         let totalQuestions = 70; // 7 зон × 10 вопросов
 
-        // DOM элементы
         const questionText = document.getElementById('questionText');
         const answersGrid = document.getElementById('answersGrid');
         const feedbackDiv = document.getElementById('feedback');
@@ -408,14 +405,6 @@
             answersGrid.innerHTML = btnsHtml;
             
             document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    if (currentQuestionAnswered) return;
-                    const selectedIdx = parseInt(btn.dataset.optIndex);
-                });
-            });
-            
-            // Перепривязываем обработчики
-            document.querySelectorAll('.answer-btn').forEach(btn => {
                 btn.removeEventListener('click', handleAnswerClick);
                 btn.addEventListener('click', handleAnswerClick);
             });
@@ -466,14 +455,12 @@
             totalQuestionsAnswered++;
             updateUI();
             
-            // Переход к следующему вопросу или зоне
             if (currentZone.currentQuestionIndex + 1 < currentZone.questions.length) {
                 currentZone.currentQuestionIndex++;
                 nextBtn.style.display = 'block';
                 finishBtn.style.display = 'none';
             } else {
                 currentZone.completed = true;
-                // Ищем следующую не пройденную зону
                 let nextZoneFound = false;
                 for (let i = 0; i < zones.length; i++) {
                     if (!zones[i].completed) {
@@ -507,7 +494,6 @@
             if (currentZone && !currentZone.completed && currentZone.currentQuestionIndex < currentZone.questions.length) {
                 showCurrentQuestion();
             } else if (currentZone && currentZone.completed) {
-                // Найти следующую зону
                 for (let i = 0; i < zones.length; i++) {
                     if (!zones[i].completed) {
                         currentZone = zones[i];
