@@ -2,543 +2,487 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Тренажёр - Безопасный ремонт? ВСЕГДА!!!</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a4d2a 0%, #0e3a1f 100%);
-            min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
+            height: 100%;
         }
-
         .container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: #ffcc00;
-            border-radius: 20px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .header h1 {
-            font-size: 1.3rem;
-            color: #1a4d2a;
-        }
-
-        .back-btn {
-            background: #1a4d2a;
-            color: white;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .score-area {
-            background: #1a4d2a;
-            color: #ffcc00;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .progress-area {
-            background: #1a4d2a;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .trainer-wrapper {
+            max-width: 1400px;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 20px;
         }
-
-        .tractor-container {
-            background: white;
-            border-radius: 25px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .tractor-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-
-        .zone-hint {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        .question-panel {
-            background: white;
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #1a4d2a;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ffcc00;
-            white-space: pre-line;
-        }
-
-        .answers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .answer-btn {
-            background: #f0f0f0;
-            border: 2px solid #ddd;
-            border-radius: 15px;
-            padding: 12px 15px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: left;
-            font-family: inherit;
-        }
-
-        .answer-btn:hover:not(:disabled) {
-            background: #e0e0e0;
-            transform: scale(1.01);
-        }
-
-        .answer-btn.correct-highlight {
-            background: #4caf50;
-            color: white;
-            border-color: #2e7d32;
-        }
-
-        .answer-btn.wrong-highlight {
-            background: #f44336;
-            color: white;
-            border-color: #c62828;
-        }
-
-        .answer-btn:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-        }
-
-        .feedback {
-            background: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            padding: 12px 15px;
-            border-radius: 12px;
-            margin-top: 10px;
-            font-size: 0.95rem;
-        }
-
-        .feedback.wrong {
-            background: #ffebee;
-            border-left-color: #f44336;
-        }
-
-        .next-btn {
-            background: #ffcc00;
-            color: #1a4d2a;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-            transition: 0.2s;
-        }
-
-        .finish-btn {
+        .top-panel {
             background: #1a4d2a;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
+            padding: 12px 20px;
+            text-align: center;
+            flex-shrink: 0;
         }
-
-        @media (max-width: 700px) {
-            .question-text { font-size: 1.1rem; }
-            .answers-grid { grid-template-columns: 1fr; }
-            body { padding: 12px; }
-            .question-panel { padding: 18px; }
+        .top-panel h1 { font-size: 1.2rem; margin-bottom: 5px; }
+        .top-panel p { font-size: 0.75rem; opacity: 0.9; }
+        .score-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        .mode-badge { background: #ff9800; color: white; }
+        .status-badge { background: #ffcc00; color: #1a4d2a; }
+        .points-badge { background: #2196f3; color: white; }
+        
+        .accordion-area {
+            background: #f8f9fa;
+            border-bottom: 2px solid #ffcc00;
+            flex-shrink: 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .accordion-item { border-bottom: 1px solid #ddd; }
+        .accordion-header {
+            background: #e8f0e5;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #1a4d2a;
+            font-size: 0.85rem;
+        }
+        .accordion-header:hover { background: #d4e0d0; }
+        .accordion-header::before { content: "▶ "; }
+        .accordion-item.active .accordion-header::before { content: "▼ "; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+            padding: 0 15px;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            padding: 10px 15px;
+        }
+        .node-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .node-btn {
+            background: #e8f0e5;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .node-btn.active { background: #ffcc00; color: #1a4d2a; }
+        .node-btn.completed { background: #4caf50; color: white; }
+        
+        .bottom-area { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+        .left-column {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 15px;
+            border-right: 3px solid #ffcc00;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .left-column h2 { font-size: 1rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #ffcc00; flex-shrink: 0; }
+        .steps-container { overflow-y: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+        .step-row { display: flex; align-items: center; gap: 10px; background: white; border-radius: 10px; padding: 8px 12px; flex-shrink: 0; }
+        .step-number {
+            width: 32px; height: 32px; background: #1a4d2a; color: #ffcc00;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1rem; flex-shrink: 0;
+        }
+        .drop-zone {
+            flex: 1; min-height: 42px; background: #e9ecef; border-radius: 8px;
+            padding: 6px 10px; border: 1px dashed #adb5bd; font-size: 0.75rem;
+        }
+        .drop-zone.drag-over { background: #ffcc00; }
+        .drop-zone.filled-correct { background: #d4edda; border: 1px solid #4caf50; }
+        .drop-zone.filled-wrong { background: #f8d7da; border: 1px solid #f44336; }
+        .drop-zone.filled-neutral { background: #e9ecef; border: 1px solid #adb5bd; }
+        .remove-btn { background: #dc3545; color: white; border: none; border-radius: 15px; padding: 2px 8px; margin-left: 8px; cursor: pointer; font-size: 0.65rem; }
+        
+        .right-column {
+            flex: 1; background: white; padding: 15px;
+            display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden;
+        }
+        .right-column h2 { font-size: 1rem; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #ffcc00; flex-shrink: 0; }
+        .answers-container { overflow-y: auto; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+        .answer-card {
+            background: #e8f0e5; padding: 8px 12px; border-radius: 10px;
+            border-left: 4px solid #ffcc00; font-size: 0.75rem; cursor: grab; flex-shrink: 0;
+        }
+        .answer-card:active { cursor: grabbing; }
+        .answer-card.dragging { opacity: 0.4; }
+        .answer-card.used { background: #c8e6c9; opacity: 0.6; text-decoration: line-through; cursor: default; }
+        
+        .control-panel {
+            background: #f1f3f5; padding: 10px; display: flex; gap: 10px;
+            justify-content: center; border-top: 1px solid #dee2e6; flex-wrap: wrap; flex-shrink: 0;
+        }
+        .btn { padding: 6px 16px; border: none; border-radius: 30px; font-weight: bold; font-size: 0.8rem; cursor: pointer; }
+        .btn-check { background: #4caf50; color: white; }
+        .btn-reset { background: #ff9800; color: white; }
+        .btn-shuffle { background: #2196f3; color: white; }
+        .btn-mode { background: #9c27b0; color: white; }
+        .btn-back { background: #607d8b; color: white; text-decoration: none; display: inline-block; line-height: 32px; padding: 6px 16px; border-radius: 30px; }
+        
+        .message-area { padding: 6px 15px; text-align: center; font-size: 0.75rem; flex-shrink: 0; max-height: 70px; overflow-y: auto; }
+        .message-success { background: #d4edda; color: #155724; }
+        .message-error { background: #f8d7da; color: #721c24; }
+        .correct-sequence { background: #e3f2fd; margin-top: 5px; padding: 6px; border-radius: 8px; font-size: 0.7rem; text-align: left; }
+        
+        @media (max-width: 900px) {
+            .bottom-area { flex-direction: column; }
+            .left-column { border-right: none; border-bottom: 2px solid #ffcc00; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎮 ТРЕНАЖЁР ПО БЕЗОПАСНОСТИ</h1>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <div class="progress-area" id="progressArea">Вопрос 1/70</div>
-                <div class="score-area">⭐ <span id="scoreValue">0</span></div>
-                <a href="index.html" class="back-btn">← На главную</a>
-            </div>
+<div class="container">
+    <div class="top-panel">
+        <h1>🎮 ТРЕНАЖЁР ПО БЕЗОПАСНОСТИ</h1>
+        <p>Выберите узел → перетащите действия в правильной последовательности</p>
+        <div class="score-container">
+            <div class="badge mode-badge" id="modeBadge">🎯 РЕЖИМ: ТРЕНИРОВКА</div>
+            <div class="badge status-badge" id="statusBadge">⚡ Статус: не пройден</div>
+            <div class="badge points-badge" id="pointsBadge">⭐ Баллы: 0</div>
         </div>
-
-        <div class="trainer-wrapper">
-            <div class="tractor-container">
-                <img src="tractor.jpg" alt="Трактор МТЗ" class="tractor-img" id="tractorImg" style="width:100%; border-radius:15px;" usemap="#tractorMap">
-                <map name="tractorMap" id="tractorMap"></map>
-                <div class="zone-hint">💡 Выберите зону трактора и ответьте на вопросы</div>
-            </div>
-
-            <div class="question-panel" id="questionPanel">
-                <div class="question-text" id="questionText">Нажмите на зону трактора, чтобы начать</div>
-                <div class="answers-grid" id="answersGrid"></div>
-                <div class="feedback" id="feedback"></div>
-                <button class="next-btn" id="nextBtn" style="display: none;">Следующий вопрос →</button>
-                <button class="finish-btn" id="finishBtn" style="display: none;">🏁 Завершить тренажёр</button>
+    </div>
+    
+    <div class="accordion-area">
+        <div class="accordion-item active">
+            <div class="accordion-header">📋 ВЫБОР УЗЛА ДЛЯ ТЕСТИРОВАНИЯ</div>
+            <div class="accordion-content">
+                <div class="node-list" id="nodeList"></div>
             </div>
         </div>
     </div>
+    
+    <div class="bottom-area">
+        <div class="left-column">
+            <h2>📝 Последовательность (шаг за шагом)</h2>
+            <div class="steps-container" id="stepsContainer"></div>
+        </div>
+        <div class="right-column">
+            <h2>🎯 Доступные действия</h2>
+            <div class="answers-container" id="answersContainer"></div>
+        </div>
+    </div>
+    
+    <div class="control-panel">
+        <a href="index.html" class="btn btn-back">🏠 НА ГЛАВНУЮ</a>
+        <button class="btn btn-mode" id="modeBtn">🎯 ТРЕНИРОВКА / КОНТРОЛЬ</button>
+        <button class="btn btn-check" id="checkBtn">✅ ПРОВЕРИТЬ</button>
+        <button class="btn btn-reset" id="resetBtn">🔄 СБРОСИТЬ</button>
+        <button class="btn btn-shuffle" id="shuffleBtn">🎲 ПЕРЕМЕШАТЬ</button>
+    </div>
+    
+    <div class="message-area" id="messageArea"></div>
+</div>
 
-    <script>
-        // Вопросы для зоны "Колесо" (10 шт)
-        const wheelQuestions = [
-            { text: "Что необходимо сделать ПЕРЕД началом разборки колеса трактора?", options: ["Подкачать шину до максимального давления", "Установить противооткатные упоры и вывесить мост на козелки", "Слить масло из двигателя", "Отключить фары и поворотники"], correct: 1, explanation: "Перед разборкой колеса нужно: установить противооткатные упоры, вывесить мост на надёжные козелки, снять давление в шине." },
-            { text: "Как правильно вывесить колесо трактора?", options: ["Только домкратом, без дополнительной страховки", "Домкратом, затем обязательно установить козелки", "С помощью лебёдки", "Подложить кирпичи под мост"], correct: 1, explanation: "Домкрат используется только для подъёма, затем обязательно устанавливаются козелки." },
-            { text: "Что делать со снятым колесом?", options: ["Положить набок, чтобы не укатилось", "Поставить вертикально и зафиксировать", "Откатить в сторону", "Оставить лежать как есть"], correct: 0, explanation: "Снятое колесо укладывают набок плашмя, чтобы оно не могло укатиться и травмировать человека." },
-            { text: "Нужно ли снимать давление в шине перед разборкой колеса?", options: ["Да, обязательно", "Нет, не нужно", "Только если шина камера", "Только для передних колёс"], correct: 0, explanation: "Перед разборкой колеса давление в шине обязательно сбрасывается для предотвращения травм." },
-            { text: "Какие упоры используются для фиксации колёс?", options: ["Деревянные бруски", "Металлические противооткатные башмаки", "Подручные материалы", "Кирпичи"], correct: 1, explanation: "Используются специальные металлические противооткатные упоры (башмаки)." },
-            { text: "Сколько противооткатных упоров нужно установить?", options: ["Один под любое колесо", "Два — под задние колёса с обеих сторон", "Четыре — под все колёса", "Достаточно под одно переднее колесо"], correct: 1, explanation: "Упоры устанавливаются под задние колёса с обеих сторон для надёжной фиксации." },
-            { text: "Можно ли использовать домкрат как единственную опору?", options: ["Да, если он исправен", "Да, на короткое время", "Нет, обязательно нужны козелки", "Только на твёрдом грунте"], correct: 2, explanation: "Домкрат предназначен только для подъёма, фиксация осуществляется козелками." },
-            { text: "Что проверяют на колесе после снятия давления?", options: ["Наличие грыж и порезов", "Рисунок протектора", "Дату изготовления шины", "Цвет шины"], correct: 0, explanation: "Перед демонтажем шины проверяют наличие повреждений, грыж, порезов." },
-            { text: "Какую обувь нужно использовать при работе с колёсами?", options: ["Любую удобную", "Кожаные ботинки", "Спецобувь с металлическим подноском", "Резиновые сапоги"], correct: 2, explanation: "При работе с тяжёлыми колёсами обязательна спецобувь с защитным подноском." },
-            { text: "Что запрещено при накачке шины?", options: ["Использовать компрессор", "Стоять напротив диска", "Использовать манометр", "Накачивать до нормы"], correct: 1, explanation: "Запрещено находиться напротив диска при накачке — при разрыве замкового кольца возможна травма." }
-        ];
-        
-        // Вопросы для зоны "Навеска" (10 шт)
-        const hitchQuestions = [
-            { text: "Какое действие ОБЯЗАТЕЛЬНО перед отсоединением навесного оборудования?", options: ["Поднять навеску в верхнее положение", "Опустить навеску на землю и зафиксировать гидроцилиндры", "Увеличить обороты двигателя", "Отключить стояночный тормоз"], correct: 1, explanation: "Навеску опускают на землю, снимают давление в гидросистеме и фиксируют гидроцилиндры страховочными цепями." },
-            { text: "Как зафиксировать гидроцилиндры навески?", options: ["Стяжными ремнями", "Страховочными цепями", "Верёвками", "Проволокой"], correct: 1, explanation: "Гидроцилиндры фиксируются специальными страховочными цепями." },
-            { text: "Нужно ли снимать давление в гидросистеме перед отсоединением?", options: ["Да, обязательно", "Нет, не нужно", "Только если есть утечки", "Только для задней навески"], correct: 0, explanation: "Давление в гидросистеме обязательно сбрасывается во избежание разрыва шлангов." },
-            { text: "Что сделать с гидролиниями перед отсоединением?", options: ["Просто отсоединить", "Отсоединить, подставив ёмкость для масла", "Пережать плоскогубцами", "Завязать узлом"], correct: 1, explanation: "При отсоединении гидролиний подставляют ёмкость для сбора остатков масла." },
-            { text: "Сколько человек нужно для отсоединения тяжёлой навески?", options: ["Один", "Два", "Три", "Не важно"], correct: 1, explanation: "Тяжёлые агрегаты отсоединяют вдвоём для безопасности." },
-            { text: "Что проверить перед подъёмом навески?", options: ["Уровень масла", "Отсутствие людей в зоне подъёма", "Давление в шинах", "Работу двигателя"], correct: 1, explanation: "Перед подъёмом убеждаются, что в зоне подъёма нет людей." },
-            { text: "Какие опоры используют для зафиксированной навески?", options: ["Деревянные чурки", "Специальные подставки", "Кирпичи", "Никакие"], correct: 1, explanation: "Для фиксации навески в поднятом положении используют специальные подставки." },
-            { text: "Что запрещено при работе с навеской?", options: ["Находиться под поднятой навеской", "Использовать гидравлику", "Мыть навеску", "Осматривать навеску"], correct: 0, explanation: "Категорически запрещено находиться под поднятой навеской без страховки." },
-            { text: "Как проверить исправность гидроцилиндров?", options: ["На слух", "Визуально на отсутствие подтеканий", "По давлению в системе", "По нагреву"], correct: 1, explanation: "Гидроцилиндры проверяют визуально на отсутствие подтеканий масла и повреждений штоков." },
-            { text: "Что делать при застревании навески?", options: ["Рвать силой", "Остановить работу, выяснить причину", "Увеличить обороты", "Позвать помощника и дёрнуть"], correct: 1, explanation: "При застревании необходимо остановить работу и выяснить причину." }
-        ];
-        
-        // Вопросы для зоны "Кабина" (10 шт)
-        const cabinQuestions = [
-            { text: "Что нужно проверить в кабине перед началом ремонта трактора?", options: ["Работоспособность магнитолы", "Рычаг КПП в нейтрали, стояночный тормоз затянут", "Наличие аптечки", "Чистоту стёкол"], correct: 1, explanation: "Рычаг КПП должен быть в нейтральном положении, стояночный тормоз затянут." },
-            { text: "В каком положении должен быть рычаг КПП при ремонте?", options: ["На любой передаче", "В нейтральном положении", "На первой передаче", "На задней передаче"], correct: 1, explanation: "Рычаг КПП обязательно устанавливается в нейтральное положение." },
-            { text: "Что такое стояночный тормоз и зачем его затягивать?", options: ["Тормоз для стоянки, предотвращает самопроизвольное движение", "Дополнительная педаль", "Ручной тормоз для поворота", "Аварийный тормоз"], correct: 0, explanation: "Стояночный тормоз фиксирует трактор на месте, предотвращая самопроизвольное движение." },
-            { text: "Нужно ли вывешивать табличку 'Двигатель не запускать'?", options: ["Да, обязательно", "Нет, не обязательно", "Только при длительном ремонте", "Только в тёмное время"], correct: 0, explanation: "Табличка вывешивается на рулевое колесо или рычаги управления для предупреждения других работников." },
-            { text: "Что сделать с ключом зажигания при ремонте?", options: ["Оставить в замке", "Извлечь и хранить у себя", "Повернуть в положение 'Вкл'", "Сломать"], correct: 1, explanation: "Ключ зажигания извлекается и хранится у выполняющего ремонт." },
-            { text: "Можно ли курить в кабине трактора?", options: ["Да", "Нет, запрещено", "Только при открытых окнах", "Только если двигатель заглушен"], correct: 1, explanation: "Курение в кабине трактора запрещено правилами пожарной безопасности." },
-            { text: "Что должно быть в кабине согласно нормам охраны труда?", options: ["Аптечка, огнетушитель", "Телевизор, холодильник", "Кондиционер, подогрев", "Музыкальный центр"], correct: 0, explanation: "В кабине обязательно наличие аптечки и огнетушителя." },
-            { text: "Как часто нужно проверять аптечку в кабине?", options: ["Раз в год", "Раз в месяц", "Перед каждым выездом", "Никогда"], correct: 0, explanation: "Аптечка проверяется не реже одного раза в год на предмет годности препаратов." },
-            { text: "Что запрещено хранить в кабине трактора?", options: ["Документы", "Инструмент", "Легковоспламеняющиеся жидкости", "Воду"], correct: 2, explanation: "В кабине запрещено хранить топливо и легковоспламеняющиеся жидкости." },
-            { text: "Какой документ должен быть у тракториста при работе?", options: ["Удостоверение тракториста-машиниста", "Водительские права", "Паспорт", "Военный билет"], correct: 0, explanation: "Тракторист должен иметь при себе удостоверение тракториста-машиниста." }
-        ];
-        
-        // Вопросы для зоны "Двигатель" (10 шт)
-        const engineQuestions = [
-            { text: "Что из перечисленного НУЖНО сделать перед разборкой двигателя?", options: ["Завести двигатель и прогреть", "Слить масло и топливо, отключить АКБ", "Проверить уровень охлаждающей жидкости", "Снять воздушный фильтр"], correct: 1, explanation: "Обязательно: слить масло и топливо, отключить аккумулятор, дать двигателю остыть." },
-            { text: "Нужно ли дать двигателю остыть перед разборкой?", options: ["Да, до температуры ниже 40°C", "Нет, можно горячим", "Только зимой", "Не имеет значения"], correct: 0, explanation: "Двигатель должен остыть до температуры ниже 40°C для безопасной работы." },
-            { text: "Почему нужно сливать масло перед разборкой?", options: ["Чтобы не испачкаться", "Для предотвращения разлива при разборке", "Масло дорогое", "Так положено"], correct: 1, explanation: "Масло сливают для предотвращения разлива при разборке двигателя." },
-            { text: "Как отключить аккумуляторную батарею?", options: ["Снять обе клеммы", "Снять клемму «минус»", "Снять клемму «плюс»", "Отсоединить провода от стартера"], correct: 1, explanation: "Первым делом отключается клемма «минус» аккумулятора." },
-            { text: "Куда сливать отработанное масло?", options: ["На землю", "В канализацию", "В специальную ёмкость", "В ведро"], correct: 2, explanation: "Отработанное масло сливается в специальную герметичную ёмкость." },
-            { text: "Что делать с топливной системой перед разборкой?", options: ["Сбросить давление, слить топливо", "Просто открутить", "Заглушить шланги", "Ничего"], correct: 0, explanation: "В топливной системе сбрасывают давление и сливают остатки топлива." },
-            { text: "Нужно ли обесточивать систему зажигания?", options: ["Да", "Нет", "Только для бензиновых", "Только для дизельных"], correct: 0, explanation: "Систему зажигания обязательно обесточивают для предотвращения случайного пуска." },
-            { text: "Что использовать для фиксации двигателя при разборке?", options: ["Подручные средства", "Специальный стенд или подставку", "Домкрат", "Тросы"], correct: 1, explanation: "Для фиксации двигателя используется специальный стенд или надёжная подставка." },
-            { text: "Каким инструментом нельзя пользоваться при разборке двигателя?", options: ["Накидными ключами", "Трещоткой", "Деформированными ключами", "Торцевыми головками"], correct: 2, explanation: "Запрещено использовать деформированные и неисправные ключи." },
-            { text: "Как проверить, что двигатель остыл?", options: ["Потрогать рукой", "Термометром или инфракрасным пистолетом", "По времени", "На глаз"], correct: 1, explanation: "Температуру проверяют термометром или тепловизором для точности." }
-        ];
-        
-        // Вопросы для зоны "Тормозная система" (10 шт)
-        const brakesQuestions = [
-            { text: "Как обезопасить себя при работе с пневматической тормозной системой?", options: ["Повысить давление в системе", "Сбросить остаточное давление, перекрыть краны", "Отключить компрессор", "Снять тормозные камеры"], correct: 1, explanation: "Перед разборкой сбрасывают остаточное давление в пневмосистеме и перекрывают краны к тормозным камерам." },
-            { text: "Чем опасно остаточное давление в пневмосистеме?", options: ["Выбросом масла", "Неожиданным срабатыванием тормозов", "Утечкой воздуха", "Повышением температуры"], correct: 1, explanation: "Остаточное давление может привести к неожиданному срабатыванию тормозов." },
-            { text: "Как сбросить давление в пневмосистеме?", options: ["Открыть краны спуска", "Отсоединить шланги", "Нажать на педаль тормоза", "Выключить компрессор"], correct: 0, explanation: "Давление сбрасывается через специальные краны спуска конденсата." },
-            { text: "Нужно ли проверять давление манометром после сброса?", options: ["Да", "Нет", "Только визуально", "На слух"], correct: 0, explanation: "После сброса давление проверяется манометром для гарантии." },
-            { text: "Какие средства защиты использовать при работе с пневмосистемой?", options: ["Перчатки", "Защитные очки", "Каску", "Наушники"], correct: 1, explanation: "При работе с пневмолиниями обязательно использование защитных очков." },
-            { text: "Что делать с конденсатом из ресиверов?", options: ["Слить в ёмкость", "Вылить на землю", "Слить обратно в систему", "Игнорировать"], correct: 0, explanation: "Конденсат сливается в специальную ёмкость для утилизации." },
-            { text: "Как часто нужно проверять тормозную систему?", options: ["Ежедневно", "Раз в неделю", "Раз в месяц", "Раз в год"], correct: 0, explanation: "Тормозная система проверяется ежедневно перед началом работ." },
-            { text: "Что означает утечка воздуха из тормозной системы?", options: ["Нормальное явление", "Неисправность, требующая ремонта", "Экономия воздуха", "Перегрузка системы"], correct: 1, explanation: "Утечка воздуха указывает на неисправность, требующую немедленного ремонта." },
-            { text: "Какое давление считается рабочим в пневмосистеме трактора?", options: ["2-4 атм", "6-8 атм", "10-12 атм", "15-20 атм"], correct: 1, explanation: "Рабочее давление в пневмосистеме трактора обычно составляет 6-8 атмосфер." },
-            { text: "Что запрещено при разборке тормозных камер?", options: ["Использовать инструмент", "Откручивать гайки", "Отворачивать стяжные болты под давлением", "Снимать пружины"], correct: 2, explanation: "Категорически запрещено отворачивать стяжные болты тормозных камер, находящихся под давлением." }
-        ];
-        
-        // Вопросы для зоны "Рулевое управление" (10 шт)
-        const steeringQuestions = [
-            { text: "Что важно сделать перед разборкой рулевого управления?", options: ["Проверить давление в шинах", "Зафиксировать колёса, слить масло из ГУР", "Отрегулировать развал-схождение", "Снять рулевое колесо"], correct: 1, explanation: "Колёса фиксируются в прямом положении, масло из гидроусилителя сливается." },
-            { text: "Как зафиксировать колёса перед ремонтом рулевого управления?", options: ["Противооткатными упорами", "Ручным тормозом", "Включением передачи", "Подкладыванием кирпичей"], correct: 0, explanation: "Колёса фиксируются противооткатными упорами." },
-            { text: "Нужно ли отключать насос гидроусилителя руля?", options: ["Да", "Нет", "Только при замене", "По желанию"], correct: 0, explanation: "Насос ГУР отключают для предотвращения подачи масла при разборке." },
-            { text: "Куда сливается масло из гидроусилителя?", options: ["На землю", "В специальную ёмкость", "Обратно в бачок", "В канализацию"], correct: 1, explanation: "Масло сливается в специальную герметичную ёмкость." },
-            { text: "Каким инструментом пользоваться для снятия рулевых наконечников?", options: ["Молотком", "Съёмником", "Газовым ключом", "Отвёрткой"], correct: 1, explanation: "Для снятия наконечников используется специальный съёмник." },
-            { text: "Что проверяют в рулевом управлении после ремонта?", options: ["Люфт рулевого колеса", "Цвет масла", "Чистоту", "Внешний вид"], correct: 0, explanation: "После ремонта проверяют люфт рулевого колеса и усилие на нём." },
-            { text: "Какой максимальный люфт рулевого колеса допускается для трактора?", options: ["5°", "15°", "25°", "35°"], correct: 2, explanation: "Максимальный люфт рулевого колеса для трактора обычно не должен превышать 25°." },
-            { text: "Что делать при обнаружении подтеканий в рулевом управлении?", options: ["Игнорировать", "Устранить неисправность", "Долить масло", "Затянуть гайки"], correct: 1, explanation: "Подтекания устраняются немедленно, так как могут привести к отказу управления." },
-            { text: "Можно ли эксплуатировать трактор с неисправным рулевым управлением?", options: ["Да", "Нет, категорически запрещено", "Только на малой скорости", "Только в поле"], correct: 1, explanation: "Эксплуатация трактора с неисправным рулевым управлением категорически запрещена." },
-            { text: "Какое масло заливается в гидроусилитель руля?", options: ["Моторное", "Трансмиссионное", "Специальное гидравлическое", "Дизельное топливо"], correct: 2, explanation: "В гидроусилитель руля заливается специальное гидравлическое масло." }
-        ];
-        
-        // Вопросы для зоны "Электрооборудование" (10 шт)
-        const electricQuestions = [
-            { text: "Первое действие при любом ремонте электрооборудования трактора?", options: ["Проверить заряд аккумулятора", "Отключить клемму «минус» аккумулятора", "Включить ближний свет", "Проверить предохранители"], correct: 1, explanation: "Первым делом отключается минусовая клемма АКБ для избежания короткого замыкания." },
-            { text: "Каким инструментом работать с электрооборудованием?", options: ["Обычным", "С изолированными ручками", "С деревянными ручками", "Любым"], correct: 1, explanation: "Используется инструмент с изолированными ручками." },
-            { text: "Нужно ли использовать диэлектрические перчатки?", options: ["Да", "Нет", "Только при высоком напряжении", "Только зимой"], correct: 2, explanation: "Диэлектрические перчатки обязательны при работе с высоковольтными системами." },
-            { text: "Что проверяют перед подключением АКБ после ремонта?", options: ["Полярность подключения", "Уровень электролита", "Заряд батареи", "Все вышеперечисленное"], correct: 3, explanation: "Перед подключением проверяют полярность, уровень электролита и заряд." },
-            { text: "Почему сначала отключается минусовая клемма?", options: ["Так проще", "Для предотвращения короткого замыкания при касании массы", "Меньше искрит", "Так положено"], correct: 1, explanation: "При отключении минуса снижается риск короткого замыкания при касании массы инструментом." },
-            { text: "Что делать с проводами при разборке электрооборудования?", options: ["Обрезать", "Маркировать и изолировать", "Соединить вместе", "Выбросить"], correct: 1, explanation: "Провода маркируются для правильной сборки и изолируются во избежание замыканий." },
-            { text: "Какое напряжение в бортовой сети трактора?", options: ["6 В", "12 В или 24 В", "36 В", "48 В"], correct: 1, explanation: "В бортовой сети трактора используется напряжение 12 В или 24 В." },
-            { text: "Что такое 'масса' в электрооборудовании трактора?", options: ["Вес трактора", "Корпус, соединённый с минусом АКБ", "Груз для балласта", "Тормозная система"], correct: 1, explanation: "Массой называют корпус, соединённый с минусовой клеммой аккумулятора." },
-            { text: "Как проверить отсутствие напряжения?", options: ["Контрольной лампой", "Мультиметром или тестером", "На ощупь", "Визуально"], correct: 1, explanation: "Отсутствие напряжения проверяется мультиметром или тестером." },
-            { text: "Что запрещено при работе с генератором?", options: ["Отключать АКБ при работающем генераторе", "Проверять ремень", "Чистить генератор", "Осматривать щётки"], correct: 0, explanation: "Запрещено отключать аккумулятор при работающем генераторе — это может вывести генератор из строя." }
-        ];
-
-        // Объединение всех вопросов по зонам
-        const zones = [
-            { id: "wheel", name: "Колесо", coords: [150, 350, 280, 480], questions: wheelQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "hitch", name: "Навеска", coords: [800, 400, 950, 550], questions: hitchQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "cabin", name: "Кабина", coords: [450, 180, 600, 320], questions: cabinQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "engine", name: "Двигатель", coords: [350, 100, 580, 220], questions: engineQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "brakes", name: "Тормозная система", coords: [650, 350, 780, 480], questions: brakesQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "steering", name: "Рулевое управление", coords: [480, 280, 620, 380], questions: steeringQuestions, currentQuestionIndex: 0, score: 0, completed: false },
-            { id: "electric", name: "Электрооборудование", coords: [300, 200, 450, 290], questions: electricQuestions, currentQuestionIndex: 0, score: 0, completed: false }
-        ];
-
-        let currentZone = null;
-        let currentQuestionAnswered = false;
-        let totalScore = 0;
-        let totalQuestionsAnswered = 0;
-        let totalQuestions = 70; // 7 зон × 10 вопросов
-
-        const questionText = document.getElementById('questionText');
-        const answersGrid = document.getElementById('answersGrid');
-        const feedbackDiv = document.getElementById('feedback');
-        const nextBtn = document.getElementById('nextBtn');
-        const finishBtn = document.getElementById('finishBtn');
-        const scoreSpan = document.getElementById('scoreValue');
-        const progressArea = document.getElementById('progressArea');
-
-        function updateUI() {
-            scoreSpan.innerText = totalScore;
-            progressArea.innerText = `Вопрос ${totalQuestionsAnswered}/${totalQuestions}`;
+<script src="data.js"></script>
+<script>
+    let currentNodeId = 'gearbox';
+    let allActions = [];
+    let droppedItems = {};
+    let stepCount = 0;
+    let currentPoints = 0;
+    let maxPoints = 0;
+    let isControlMode = false;
+    let nextId = 1;
+    
+    let completedNodes = JSON.parse(localStorage.getItem('trainer_completed_nodes') || '{}');
+    
+    function shuffleArray(arr) {
+        const newArr = [...arr];
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
         }
-
-        function saveResultToHistory() {
-            const maxPossible = totalQuestions * 10;
-            const history = JSON.parse(localStorage.getItem('trainer_history') || '[]');
-            history.push({
-                date: new Date().toLocaleString(),
-                score: totalScore,
-                maxScore: maxPossible
-            });
-            localStorage.setItem('trainer_history', JSON.stringify(history));
+        return newArr;
+    }
+    
+    function initActions() {
+        const nodeData = NODES_DATA[currentNodeId];
+        nextId = 1;
+        const correctWithType = nodeData.correctActions.map(text => ({ text, type: 'correct', used: false, id: nextId++ }));
+        const wrongWithType = nodeData.wrongActions.map(text => ({ text, type: 'wrong', used: false, id: nextId++ }));
+        allActions = shuffleArray([...correctWithType, ...wrongWithType]);
+        stepCount = nodeData.correctActions.length;
+        maxPoints = stepCount;
+    }
+    
+    function updatePointsDisplay() {
+        document.getElementById('pointsBadge').innerHTML = `⭐ Баллы: ${currentPoints}`;
+    }
+    
+    function updateModeDisplay() {
+        const modeBadge = document.getElementById('modeBadge');
+        if (isControlMode) {
+            modeBadge.innerHTML = '🔒 РЕЖИМ: КОНТРОЛЬ';
+            modeBadge.style.background = '#f44336';
+        } else {
+            modeBadge.innerHTML = '🎯 РЕЖИМ: ТРЕНИРОВКА';
+            modeBadge.style.background = '#ff9800';
         }
-
-        function finishTrainer() {
-            if (totalQuestionsAnswered < totalQuestions) {
-                if (confirm(`Вы ответили только на ${totalQuestionsAnswered} из ${totalQuestions} вопросов. Завершить досрочно?`)) {
-                    saveResultToHistory();
-                    alert(`Тренажёр завершён! Результат: ${totalScore} из ${totalQuestions * 10} баллов.`);
-                    window.location.href = 'index.html';
-                }
-            } else {
-                saveResultToHistory();
-                alert(`Поздравляем! Вы ответили на все ${totalQuestions} вопросов!\nРезультат: ${totalScore} из ${totalQuestions * 10} баллов.`);
-                window.location.href = 'index.html';
-            }
-        }
-
-        function scrollToQuestion() {
-            const panel = document.getElementById('questionPanel');
-            if (panel) {
-                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        function showCurrentQuestion() {
-            if (!currentZone) return;
+    }
+    
+    function getDropZoneClass(step) {
+        if (!droppedItems[step]) return '';
+        if (isControlMode) return 'filled-neutral';
+        return droppedItems[step].type === 'correct' ? 'filled-correct' : 'filled-wrong';
+    }
+    
+    function renderLeftColumn() {
+        const container = document.getElementById('stepsContainer');
+        container.innerHTML = '';
+        for (let i = 1; i <= stepCount; i++) {
+            const row = document.createElement('div');
+            row.className = 'step-row';
+            const dropZoneClass = getDropZoneClass(i);
+            row.innerHTML = `
+                <div class="step-number">${i}</div>
+                <div class="drop-zone ${dropZoneClass}" data-step="${i}">
+                    ${droppedItems[i] ? 
+                        `<span>${droppedItems[i].text}</span>
+                         <button class="remove-btn" onclick="removeFromStep(${i})">✖</button>` : 
+                        '⬅️ Перетащите сюда'}
+                </div>
+            `;
+            container.appendChild(row);
             
-            const currentQ = currentZone.questions[currentZone.currentQuestionIndex];
-            questionText.innerText = `📍 Зона: ${currentZone.name} (вопрос ${currentZone.currentQuestionIndex + 1}/${currentZone.questions.length})\n${currentQ.text}`;
-            
-            let btnsHtml = '';
-            currentQ.options.forEach((opt, idx) => {
-                btnsHtml += `<button class="answer-btn" data-opt-index="${idx}">${String.fromCharCode(65+idx)}. ${opt}</button>`;
-            });
-            answersGrid.innerHTML = btnsHtml;
-            
-            document.querySelectorAll('.answer-btn').forEach(btn => {
-                btn.removeEventListener('click', handleAnswerClick);
-                btn.addEventListener('click', handleAnswerClick);
-            });
-            
-            feedbackDiv.innerHTML = '';
-            feedbackDiv.className = 'feedback';
-            nextBtn.style.display = 'none';
-            finishBtn.style.display = 'none';
-            currentQuestionAnswered = false;
-            
-            scrollToQuestion();
-        }
-        
-        function handleAnswerClick(e) {
-            if (currentQuestionAnswered) return;
-            const selectedIdx = parseInt(e.currentTarget.dataset.optIndex);
-            const currentQ = currentZone.questions[currentZone.currentQuestionIndex];
-            const isCorrect = (selectedIdx === currentQ.correct);
-            
-            currentQuestionAnswered = true;
-            
-            if (isCorrect) {
-                totalScore += 10;
-                currentZone.score += 10;
-                updateUI();
-                feedbackDiv.innerHTML = `✅ ПРАВИЛЬНО! +10 баллов.<br><br>📖 Пояснение: ${currentQ.explanation}`;
-                feedbackDiv.className = 'feedback';
-                document.querySelectorAll('.answer-btn').forEach((btn, idx) => {
-                    btn.disabled = true;
-                    if (idx === currentQ.correct) {
-                        btn.classList.add('correct-highlight');
-                    }
-                });
-            } else {
-                feedbackDiv.innerHTML = `❌ НЕПРАВИЛЬНО. Правильный ответ: ${String.fromCharCode(65+currentQ.correct)}. ${currentQ.options[currentQ.correct]}<br><br>📖 Пояснение: ${currentQ.explanation}`;
-                feedbackDiv.className = 'feedback wrong';
-                document.querySelectorAll('.answer-btn').forEach((btn, idx) => {
-                    btn.disabled = true;
-                    if (idx === currentQ.correct) {
-                        btn.classList.add('correct-highlight');
-                    }
-                    if (idx === selectedIdx) {
-                        btn.classList.add('wrong-highlight');
-                    }
-                });
-            }
-            
-            totalQuestionsAnswered++;
-            updateUI();
-            
-            if (currentZone.currentQuestionIndex + 1 < currentZone.questions.length) {
-                currentZone.currentQuestionIndex++;
-                nextBtn.style.display = 'block';
-                finishBtn.style.display = 'none';
-            } else {
-                currentZone.completed = true;
-                let nextZoneFound = false;
-                for (let i = 0; i < zones.length; i++) {
-                    if (!zones[i].completed) {
-                        currentZone = zones[i];
-                        nextZoneFound = true;
-                        break;
-                    }
-                }
-                if (nextZoneFound) {
-                    nextBtn.style.display = 'block';
-                    finishBtn.style.display = 'none';
-                } else {
-                    nextBtn.style.display = 'none';
-                    finishBtn.style.display = 'block';
-                }
-            }
-        }
-
-        function selectZone(zone) {
-            if (zone.completed) {
-                feedbackDiv.innerHTML = `<div style="color:#ff9800;">✅ Зона "${zone.name}" уже пройдена полностью! Выберите другую зону.</div>`;
-                scrollToQuestion();
-                return;
-            }
-            currentZone = zone;
-            currentQuestionAnswered = false;
-            showCurrentQuestion();
-        }
-
-        function nextQuestion() {
-            if (currentZone && !currentZone.completed && currentZone.currentQuestionIndex < currentZone.questions.length) {
-                showCurrentQuestion();
-            } else if (currentZone && currentZone.completed) {
-                for (let i = 0; i < zones.length; i++) {
-                    if (!zones[i].completed) {
-                        currentZone = zones[i];
-                        showCurrentQuestion();
-                        return;
-                    }
-                }
-                finishBtn.style.display = 'block';
-                nextBtn.style.display = 'none';
-            }
-        }
-
-        function setupImageMap() {
-            const map = document.getElementById('tractorMap');
-            map.innerHTML = '';
-            zones.forEach(zone => {
-                const area = document.createElement('area');
-                area.shape = 'rect';
-                area.coords = zone.coords.join(',');
-                area.alt = zone.name;
-                area.title = zone.name;
-                area.style.cursor = 'pointer';
-                area.addEventListener('click', (e) => {
+            const dropZone = row.querySelector('.drop-zone');
+            if (!droppedItems[i]) {
+                dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+                dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('drag-over'); });
+                dropZone.addEventListener('drop', (e) => {
                     e.preventDefault();
-                    selectZone(zone);
+                    dropZone.classList.remove('drag-over');
+                    const step = parseInt(dropZone.dataset.step);
+                    const draggedText = e.dataTransfer.getData('text/plain');
+                    if (draggedText) handleDrop(step, draggedText);
                 });
-                map.appendChild(area);
-            });
+            }
         }
-
-        nextBtn.addEventListener('click', nextQuestion);
-        finishBtn.addEventListener('click', finishTrainer);
-
-        const tractorImg = document.getElementById('tractorImg');
-        tractorImg.onload = function() {
-            setupImageMap();
-        };
-        if (tractorImg.complete) {
-            setupImageMap();
+    }
+    
+    function renderRightColumn() {
+        const container = document.getElementById('answersContainer');
+        container.innerHTML = '';
+        const availableActions = allActions.filter(a => !a.used);
+        availableActions.forEach((action) => {
+            const card = document.createElement('div');
+            card.className = `answer-card ${action.used ? 'used' : ''}`;
+            card.textContent = action.text;
+            if (!action.used) {
+                card.setAttribute('draggable', 'true');
+                card.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', action.text);
+                    card.classList.add('dragging');
+                });
+                card.addEventListener('dragend', () => { card.classList.remove('dragging'); });
+            } else {
+                card.setAttribute('draggable', 'false');
+            }
+            container.appendChild(card);
+        });
+    }
+    
+    function handleDrop(step, actionText) {
+        const actionIndex = allActions.findIndex(a => a.text === actionText && !a.used);
+        if (actionIndex === -1) { if (!isControlMode) showMessage('❌ Действие уже использовано!', 'error'); return; }
+        const action = allActions[actionIndex];
+        if (droppedItems[step]) { if (!isControlMode) showMessage(`⚠️ Шаг ${step} уже заполнен`, 'error'); return; }
+        
+        const isCorrectForThisStep = (action.text === NODES_DATA[currentNodeId].correctActions[step-1]);
+        
+        if (!isControlMode) {
+            if (isCorrectForThisStep) { currentPoints += 1; showMessage(`✅ Шаг ${step}: +1 балл`, 'success'); }
+            else { currentPoints -= 1; showMessage(`❌ Шаг ${step}: -1 балл`, 'error'); }
+            updatePointsDisplay();
         }
         
-        updateUI();
+        droppedItems[step] = { text: action.text, type: isCorrectForThisStep ? 'correct' : 'wrong' };
+        action.used = true;
+        renderLeftColumn();
+        renderRightColumn();
         
-        questionText.innerText = "Нажмите на зону трактора, чтобы начать";
-        answersGrid.innerHTML = "";
-    </script>
+        const filledCount = Object.keys(droppedItems).length;
+        if (filledCount === stepCount && !isControlMode) checkSequence();
+    }
+    
+    window.removeFromStep = function(step) {
+        const removed = droppedItems[step];
+        if (removed) {
+            if (!isControlMode) {
+                if (removed.type === 'correct') currentPoints -= 1;
+                else currentPoints += 1;
+                updatePointsDisplay();
+            }
+            const actionIndex = allActions.findIndex(a => a.text === removed.text);
+            if (actionIndex !== -1) allActions[actionIndex].used = false;
+            delete droppedItems[step];
+            renderLeftColumn();
+            renderRightColumn();
+            if (!isControlMode) showMessage(`🔄 Шаг ${step} удалён`, '');
+        }
+    };
+    
+    function resetAll() {
+        initActions();
+        droppedItems = {};
+        if (!isControlMode) { currentPoints = 0; updatePointsDisplay(); }
+        renderLeftColumn();
+        renderRightColumn();
+        if (!isControlMode) showMessage('🔄 Всё сброшено!', '');
+        document.getElementById('statusBadge').innerHTML = '⚡ Статус: не пройден';
+        document.getElementById('statusBadge').style.background = '#ffcc00';
+        document.getElementById('messageArea').innerHTML = '';
+    }
+    
+    function shuffleAnswers() {
+        const usedActionsText = Object.values(droppedItems).map(d => d.text);
+        const unusedActions = allActions.filter(a => !a.used);
+        const shuffledUnused = shuffleArray(unusedActions);
+        const newAllActions = [];
+        usedActionsText.forEach(text => {
+            const isCorrect = NODES_DATA[currentNodeId].correctActions.includes(text);
+            newAllActions.push({ text, type: isCorrect ? 'correct' : 'wrong', used: true, id: nextId++ });
+        });
+        newAllActions.push(...shuffledUnused);
+        allActions = newAllActions;
+        renderRightColumn();
+        if (!isControlMode) showMessage('🎲 Порядок ответов перемешан!', '');
+    }
+    
+    function showCorrectSequence() {
+        const msgArea = document.getElementById('messageArea');
+        let html = '<div class="correct-sequence"><strong>📖 Правильная последовательность:</strong><br>';
+        NODES_DATA[currentNodeId].correctActions.forEach((action, idx) => { html += `${idx+1}. ${action}<br>`; });
+        html += '</div>';
+        if (msgArea.innerHTML && !msgArea.innerHTML.includes('Правильная')) msgArea.innerHTML = msgArea.innerHTML + html;
+        else msgArea.innerHTML = html;
+    }
+    
+    function checkSequence() {
+        const filledCount = Object.keys(droppedItems).length;
+        if (filledCount !== stepCount) {
+            showMessage(`⚠️ Заполнено ${filledCount} из ${stepCount} шагов`, 'error');
+            showCorrectSequence();
+            return;
+        }
+        let correct = true, wrongSteps = [];
+        for (let i = 1; i <= stepCount; i++) {
+            if (droppedItems[i].text !== NODES_DATA[currentNodeId].correctActions[i-1]) { correct = false; wrongSteps.push(i); }
+        }
+        if (correct) {
+            let finalPoints = isControlMode ? maxPoints : currentPoints;
+            if (isControlMode) { currentPoints = maxPoints; updatePointsDisplay(); }
+            showMessage(`🎉 ПРАВИЛЬНО! Баллы: ${finalPoints} из ${maxPoints} 🎉`, 'success');
+            document.getElementById('statusBadge').innerHTML = '✅ ПРОЙДЕН!';
+            document.getElementById('statusBadge').style.background = '#4caf50';
+            const history = JSON.parse(localStorage.getItem('trainer_history') || '[]');
+            history.push({ date: new Date().toLocaleString(), nodeName: NODES_DATA[currentNodeId].fullName, score: finalPoints, maxScore: maxPoints, mode: isControlMode ? 'контроль' : 'тренировка' });
+            localStorage.setItem('trainer_history', JSON.stringify(history));
+            completedNodes[currentNodeId] = true;
+            localStorage.setItem('trainer_completed_nodes', JSON.stringify(completedNodes));
+            renderNodeList();
+        } else {
+            if (isControlMode) {
+                showMessage(`❌ КОНТРОЛЬ НЕ ПРОЙДЕН! Ошибка в шагах: ${wrongSteps.join(', ')}.`, 'error');
+                currentPoints = 0; updatePointsDisplay();
+            } else {
+                showMessage(`❌ Ошибка в шагах: ${wrongSteps.join(', ')}. Баллы: ${currentPoints}`, 'error');
+            }
+            showCorrectSequence();
+            document.getElementById('statusBadge').innerHTML = '❌ НЕ ПРОЙДЕН';
+            document.getElementById('statusBadge').style.background = '#f44336';
+        }
+    }
+    
+    function toggleMode() {
+        isControlMode = !isControlMode;
+        updateModeDisplay();
+        resetAll();
+        if (isControlMode) { currentPoints = 0; updatePointsDisplay(); }
+    }
+    
+    function showMessage(msg, type) {
+        const msgArea = document.getElementById('messageArea');
+        if (!msg.includes('Правильная последовательность')) msgArea.innerHTML = msg;
+        msgArea.className = 'message-area';
+        if (type === 'success') msgArea.classList.add('message-success');
+        else if (type === 'error') msgArea.classList.add('message-error');
+        setTimeout(() => {
+            if (msgArea.innerHTML === msg && !msg.includes('Правильная')) { msgArea.innerHTML = ''; msgArea.className = 'message-area'; }
+        }, 3000);
+    }
+    
+    function loadNode(nodeId) {
+        currentNodeId = nodeId;
+        initActions();
+        droppedItems = {};
+        currentPoints = 0;
+        updatePointsDisplay();
+        renderLeftColumn();
+        renderRightColumn();
+        document.getElementById('statusBadge').innerHTML = '⚡ Статус: не пройден';
+        document.getElementById('statusBadge').style.background = '#ffcc00';
+        document.getElementById('messageArea').innerHTML = '';
+        renderNodeList();
+    }
+    
+    function renderNodeList() {
+        const container = document.getElementById('nodeList');
+        container.innerHTML = '';
+        for (const [id, data] of Object.entries(NODES_DATA)) {
+            const btn = document.createElement('button');
+            btn.className = 'node-btn';
+            if (id === currentNodeId) btn.classList.add('active');
+            if (completedNodes[id]) btn.classList.add('completed');
+            btn.textContent = data.name;
+            btn.onclick = () => loadNode(id);
+            container.appendChild(btn);
+        }
+    }
+    
+    renderNodeList();
+    initActions();
+    renderLeftColumn();
+    renderRightColumn();
+    updatePointsDisplay();
+    updateModeDisplay();
+    
+    document.getElementById('checkBtn').addEventListener('click', checkSequence);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    document.getElementById('shuffleBtn').addEventListener('click', shuffleAnswers);
+    document.getElementById('modeBtn').addEventListener('click', toggleMode);
+</script>
 </body>
 </html>
